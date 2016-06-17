@@ -94,15 +94,6 @@ exports.authenticate = function(hook_name, context) {
   return passport.authenticate('hbp')(context.req, context.res, context.next);
 }
 
-exports.authorize = function(hook_name, context, cb) {
-  console.info('oauth2-authorize for', context.req.url);
-  console.log('user', context.req.user, context.req.session);
-  if(context.req.url.indexOf('/auth') === 0) {
-    return cb([true]);
-  }
-  return cb([context.req.user]);
-}
-
 exports.handleMessage = function(hook_name, context, cb) {
   console.debug("oauth2.handleMessage");
   if ( context.message.type == "CLIENT_READY" ) {
