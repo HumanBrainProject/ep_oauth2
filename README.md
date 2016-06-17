@@ -1,5 +1,8 @@
 # Etherpad lite OAuth2 authentication
 
+Use [http://passportjs.org/](passport) and [https://github.com/jaredhanson/passport-oauth](passport-oauth)
+to provide OAuth2 based authentication to Etherpad lite.
+
 ## Install
 
 In your etherpad-lite dir:
@@ -8,12 +11,14 @@ In your etherpad-lite dir:
 npm install ep_oauth2
 ```
 
-Add to settings.json
+Configure your backend using `settings.json` or environement variables.
+
+Either add to `settings.json`:
 
 ```json
 "users": {
   "oauth2": {
-    "authorizeUrl": "https://services.humanbrainproject.eu/oidc/authorize",
+    "authorizationURL": "https://services.humanbrainproject.eu/oidc/authorize",
     "tokenURL": "https://services.humanbrainproject.eu/oidc/token",
     "clientID": "YOUR-OIDC-CLIENT-ID",
     "clientSecret": "YOUR-OIDC-CLIENT-SECRET",
@@ -24,8 +29,17 @@ Add to settings.json
 }
 ```
 
-Use [http://passportjs.org/](passport) and [https://github.com/jaredhanson/passport-oauth](passport-oauth)
-to provide OAuth2 based authentication.
+or define the following environment variables:
+
+```bash
+EP_OAUTH2_AUTHORIZATION_URL = "https://services.humanbrainproject.eu/oidc/authorize"
+EP_OAUTH2_TOKEN_URL = "https://services.humanbrainproject.eu/oidc/token"
+EP_OAUTH2_CLIENT_ID = "YOUR-OIDC-CLIENT-ID"
+EP_OAUTH2_CLIENT_SECRET = "YOUR-OIDC-CLIENT-SECRET"
+EP_OAUTH2_PUBLIC_URL = "http://localhost:9001"
+EP_OAUTH2_USERINFO_URL = "https://services.humanbrainproject.eu/oidc/userinfo"
+EP_OAUTH2_USERNAME_KEY = "name"
+```
 
 ## Inspirations
 

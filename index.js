@@ -1,5 +1,5 @@
 var ERR = require('async-stacktrace');
-var settings = require('ep_etherpad-lite/node/utils/Settings').ep_oauth2;
+var settings = require('ep_etherpad-lite/node/utils/Settings');
 var authorManager = require('ep_etherpad-lite/node/db/AuthorManager');
 var request = require('request');
 
@@ -8,14 +8,13 @@ var passport = require('passport');
 var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
 // Environment Variables
-var authorizationURL = process.env['EP_OAUTH2_AUTHORIZATION_URL'] || settings.authorizationURL;
-var tokenURL = process.env['EP_OAUTH2_TOKEN_URL'] || settings.tokenURL;
-var clientID = process.env['EP_OAUTH2_CLIENT_ID'] || settings.clientID;
-var clientSecret = process.env['EP_OAUTH2_CLIENT_SECRET'] || settings.clientSecret;
-var publicURL = process.env['EP_OAUTH2_PUBLIC_URL'] || settings.publicURL;
-var userinfoURL = process.env['EP_OAUTH2_USERINFO_URL'] || settings.userinfoURL;
-var usernameKey = process.env['EP_OAUTH2_USERNAME_KEY'] || settings.usernameKey;
-
+var authorizationURL = process.env['EP_OAUTH2_AUTHORIZATION_URL'] || settings.users.oauth2.authorizationURL;
+var tokenURL = process.env['EP_OAUTH2_TOKEN_URL'] || settings.users.oauth2.tokenURL;
+var clientID = process.env['EP_OAUTH2_CLIENT_ID'] || settings.users.oauth2.clientID;
+var clientSecret = process.env['EP_OAUTH2_CLIENT_SECRET'] || settings.users.oauth2.clientSecret;
+var publicURL = process.env['EP_OAUTH2_PUBLIC_URL'] || settings.users.oauth2.publicURL;
+var userinfoURL = process.env['EP_OAUTH2_USERINFO_URL'] || settings.users.oauth2.userinfoURL;
+var usernameKey = process.env['EP_OAUTH2_USERNAME_KEY'] || settings.users.oauth2.usernameKey;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
