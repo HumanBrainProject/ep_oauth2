@@ -1,0 +1,14 @@
+{
+  "parts": [
+    {
+      "name": "main",
+      "hooks": {
+        "authenticate": "ep_oauth2/index.js:authenticate",
+        "authorize" : "ep_oauth2/index.js:authorize",
+        "expressConfigure": "ep_oauth2/index.js:expressConfigure",
+        "expressCreateServer": "ep_oauth2/index.js:expressCreateServer",
+        "handleMessage": "ep_oauth2/index.js:handleMessage"
+      }
+    }
+  ]
+}

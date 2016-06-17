@@ -1,0 +1,32 @@
+{
+  "name": "ep_oauth2",
+  "version": "0.1.0",
+  "description": "Etherpad-lite OAuth2 authentication plugin based on passeport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "etherpad",
+    "plugin",
+    "ep",
+    "oauth2",
+    "openid",
+    "passport",
+    "hbp"
+  ],
+  "author": "Olivier Amblet <olivier@amblet.net>",
+  "license": "MIT",
+  "peerDependencies": {
+    "ep_etherpad-lite": ">=1.5.1"
+  },
+  "engines": {
+    "node": ">= 0.12"
+  },
+  "dependencies": {
+    "async-stacktrace": "0.0.2",
+    "passport": "^0.3.2",
+    "passport-oauth": "^1.0.0",
+    "request": "^2.72.0"
+  }
+}
