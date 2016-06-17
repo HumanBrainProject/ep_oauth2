@@ -1,6 +1,6 @@
 {
   "name": "ep_oauth2",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Etherpad-lite OAuth2 authentication plugin based on passeport",
   "main": "index.js",
   "scripts": {
@@ -17,9 +17,6 @@
   ],
   "author": "Olivier Amblet <olivier@amblet.net>",
   "license": "MIT",
-  "peerDependencies": {
-    "ep_etherpad-lite": ">=1.5.1"
-  },
   "engines": {
     "node": ">= 0.12"
   },

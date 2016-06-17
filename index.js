@@ -47,8 +47,6 @@ exports.expressConfigure = function(hook_name, context) {
     clientSecret: clientSecret,
     callbackURL: publicURL + '/auth/callback'
   }, function(accessToken, refreshToken, profile, cb) {
-    console.log('user profile', profile);
-    console.log('Access Token', accessToken);
     request.get({
       url: userinfoURL,
       auth: {
@@ -79,7 +77,7 @@ exports.expressCreateServer = function (hook_name, context) {
     failureRedirect: '/auth/failure'
   }), function(req, res) {
     req.session.user = req.user;
-    res.redirect('/');
+    res.redirect(req.session.afterAuthUrl);
   });
   app.get('/auth/failure', function(req, res) {
     res.send("<em>Authentication Failed</em>")
@@ -90,7 +88,8 @@ exports.expressCreateServer = function (hook_name, context) {
 }
 
 exports.authenticate = function(hook_name, context) {
-  console.info('oauth2-authenticate');
+  console.info('oauth2-authenticate from ->', context.req.url);
+  context.req.session.afterAuthUrl = context.req.url;
   return passport.authenticate('hbp')(context.req, context.res, context.next);
 }
 
