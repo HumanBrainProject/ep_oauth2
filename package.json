@@ -1,6 +1,6 @@
 {
   "name": "ep_oauth2",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Etherpad-lite OAuth2 authentication plugin based on passeport",
   "main": "index.js",
   "scripts": {

@@ -15,6 +15,7 @@ var clientSecret = process.env['EP_OAUTH2_CLIENT_SECRET'] || settings.users.oaut
 var publicURL = process.env['EP_OAUTH2_PUBLIC_URL'] || settings.users.oauth2.publicURL;
 var userinfoURL = process.env['EP_OAUTH2_USERINFO_URL'] || settings.users.oauth2.userinfoURL;
 var usernameKey = process.env['EP_OAUTH2_USERNAME_KEY'] || settings.users.oauth2.usernameKey;
+var idKey = process.env['EP_OAUTH2_USERID_KEY'] || settings.users.oauth2.useridKey;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -62,7 +63,13 @@ exports.expressConfigure = function(hook_name, context) {
         accessToken: accessToken,
         refreshToken: refreshToken
       };
-      cb(null, data);
+      authorManager.createAuthorIfNotExistsFor(data[idKey], data[usernameKey], function(err, authorId) {
+        if (err) {
+          return cb(err);
+        }
+        data.authorId = authorId;
+        return cb(null, data);
+      });
     });
   }));
   var app = context.app;
@@ -102,9 +109,6 @@ exports.handleMessage = function(hook_name, context, cb) {
       var client_id = context.client.id;
       if ('user' in context.client.client.request.session) {
         var displayName = context.client.client.request.session.user[usernameKey];
-        // if(settings.users.ldapauth.anonymousReadonly && !displayName) {
-        //   displayName = 'guest'
-        // };
         console.debug('oauth2.handleMessage: intercepted CLIENT_READY message for client_id = %s, setting username for token %s to %s', client_id, context.message.token, displayName);
         setUsername(context.message.token, displayName);
       }
