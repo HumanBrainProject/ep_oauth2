@@ -33,14 +33,23 @@ Either add to `settings.json`:
 or define the following environment variables:
 
 ```bash
-EP_OAUTH2_AUTHORIZATION_URL="https://services.humanbrainproject.eu/oidc/authorize"
-EP_OAUTH2_TOKEN_URL="https://services.humanbrainproject.eu/oidc/token"
-EP_OAUTH2_USERINFO_URL="https://services.humanbrainproject.eu/oidc/userinfo"
-EP_OAUTH2_USERNAME_KEY="name"
-EP_OAUTH2_USERID_KEY="preferred_username"
-EP_OAUTH2_CLIENT_ID="YOUR-OIDC-CLIENT-ID"
-EP_OAUTH2_CLIENT_SECRET="YOUR-OIDC-CLIENT-SECRET"
-EP_OAUTH2_PUBLIC_URL="http://localhost:9001"
+EP_OAUTH2_AUTHORIZATION_URL=https://services.humanbrainproject.eu/oidc/authorize
+EP_OAUTH2_TOKEN_URL=https://services.humanbrainproject.eu/oidc/token
+EP_OAUTH2_USERINFO_URL=https://services.humanbrainproject.eu/oidc/userinfo
+EP_OAUTH2_USERNAME_KEY=name
+EP_OAUTH2_USERID_KEY=preferred_username
+EP_OAUTH2_CLIENT_ID=YOUR-OIDC-CLIENT-ID
+EP_OAUTH2_CLIENT_SECRET=YOUR-OIDC-CLIENT-SECRET
+EP_OAUTH2_PUBLIC_URL=http://localhost:9001
+```
+
+Even if you define all the variables through the environment, you must activate
+the plugin by adding a minimal entry in settings.json
+
+```json
+"users": {
+  "oauth2": {}
+}
 ```
 
 ## Inspirations
