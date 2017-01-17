@@ -16,6 +16,7 @@ var publicURL = process.env['EP_OAUTH2_PUBLIC_URL'] || settings.users.oauth2.pub
 var userinfoURL = process.env['EP_OAUTH2_USERINFO_URL'] || settings.users.oauth2.userinfoURL;
 var usernameKey = process.env['EP_OAUTH2_USERNAME_KEY'] || settings.users.oauth2.usernameKey;
 var idKey = process.env['EP_OAUTH2_USERID_KEY'] || settings.users.oauth2.useridKey;
+var scope = process.env['EP_OAUTH2_SCOPE'] || settings.users.oauth2.scope;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -46,7 +47,8 @@ exports.expressConfigure = function(hook_name, context) {
     tokenURL: tokenURL,
     clientID: clientID,
     clientSecret: clientSecret,
-    callbackURL: publicURL + '/auth/callback'
+    callbackURL: publicURL + '/auth/callback',
+    scope: scope
   }, function(accessToken, refreshToken, profile, cb) {
     request.get({
       url: userinfoURL,
