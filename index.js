@@ -101,6 +101,7 @@ exports.expressCreateServer = function (hook_name, context) {
 }
 
 exports.authenticate = function(hook_name, context) {
+  if (context.req.url.startsWith('/auth/')) return context.next();
   console.info('oauth2-authenticate from ->', context.req.url);
   context.req.session.afterAuthUrl = context.req.url;
   return passport.authenticate('hbp')(context.req, context.res, context.next);
