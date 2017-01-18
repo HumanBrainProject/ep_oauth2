@@ -18,6 +18,7 @@ var usernameKey = process.env['EP_OAUTH2_USERNAME_KEY'] || settings.users.oauth2
 var idKey = process.env['EP_OAUTH2_USERID_KEY'] || settings.users.oauth2.useridKey;
 var scope = process.env['EP_OAUTH2_SCOPE'] || settings.users.oauth2.scope;
 var proxy = process.env['EP_OAUTH2_PROXY'] || settings.users.oauth2.proxy;
+var state = process.env['EP_OAUTH2_STATE'] || settings.users.oauth2.state;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -50,7 +51,8 @@ exports.expressConfigure = function(hook_name, context) {
     clientSecret: clientSecret,
     callbackURL: publicURL + '/auth/callback',
     scope: scope,
-    proxy: proxy
+    proxy: proxy,
+    state: state
   }, function(accessToken, refreshToken, profile, cb) {
     request.get({
       url: userinfoURL,
