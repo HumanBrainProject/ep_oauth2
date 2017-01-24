@@ -16,6 +16,9 @@ var publicURL = process.env['EP_OAUTH2_PUBLIC_URL'] || settings.users.oauth2.pub
 var userinfoURL = process.env['EP_OAUTH2_USERINFO_URL'] || settings.users.oauth2.userinfoURL;
 var usernameKey = process.env['EP_OAUTH2_USERNAME_KEY'] || settings.users.oauth2.usernameKey;
 var idKey = process.env['EP_OAUTH2_USERID_KEY'] || settings.users.oauth2.useridKey;
+var scope = process.env['EP_OAUTH2_SCOPE'] || settings.users.oauth2.scope;
+var proxy = process.env['EP_OAUTH2_PROXY'] || settings.users.oauth2.proxy;
+var state = process.env['EP_OAUTH2_STATE'] || settings.users.oauth2.state;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -46,7 +49,10 @@ exports.expressConfigure = function(hook_name, context) {
     tokenURL: tokenURL,
     clientID: clientID,
     clientSecret: clientSecret,
-    callbackURL: publicURL + '/auth/callback'
+    callbackURL: publicURL + '/auth/callback',
+    scope: scope,
+    proxy: proxy,
+    state: state
   }, function(accessToken, refreshToken, profile, cb) {
     request.get({
       url: userinfoURL,
@@ -95,6 +101,7 @@ exports.expressCreateServer = function (hook_name, context) {
 }
 
 exports.authenticate = function(hook_name, context) {
+  if (context.req.url.indexOf('/auth/') === 0) return context.next();
   console.info('oauth2-authenticate from ->', context.req.url);
   context.req.session.afterAuthUrl = context.req.url;
   return passport.authenticate('hbp')(context.req, context.res, context.next);
